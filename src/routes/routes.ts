@@ -1,6 +1,7 @@
 import  * as Hapi  from "@hapi/hapi";
 
 import {home,notesList,addNote,updateNote,deleteNote,getNoteById} from "../controllers/controllers";
+import { noteValidator } from "../validators/validators";
 
 export const homeRoute = {
     method : "GET",
@@ -17,6 +18,7 @@ export const notesRoute = {
 export const addNoteRoute = {
     method : "POST",
     path : "/notes",
+    options: noteValidator,
     handler : addNote
 }
 
@@ -29,6 +31,7 @@ export const getNoteByIdRoute = {
 export const updateNoteRoute = {
     method : "PUT",
     path : "/notes/{id}",
+    options: noteValidator,
     handler : updateNote
 }
 
