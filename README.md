@@ -19,3 +19,6 @@ Contains all handler functions
 Contains all route
 
 In future we can add database folder to configure database (connection, parameters...)
+
+## Important
+When test this API, you must specify the "id" of note manually

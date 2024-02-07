@@ -25,13 +25,12 @@ export const updateNote = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
     const id:number = request.params.id;
 
     const note = <Note>request.payload;
-    
-    let noteF = notesData.find((value:Note)=>{
-        if(value.id===id) return value;
-    });
+
+    let noteF = notesData.find((value:Note)=>  value.id==id);
 
     if(noteF){
-        noteF=note;
+        notesData = notesData.filter((value:Note)=>  value.id !=id);
+        notesData.push(note);
         return h.response(notesData);
     }else{
         return h.response("note not found, please try another id");
@@ -42,9 +41,8 @@ export const updateNote = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
 
 export const deleteNote = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
     const id:number = request.params.id;
-    notesData = notesData.filter((value:Note)=>{
-        if(value.id!==id) return value;
-    });
+
+    notesData = notesData.filter((value:Note)=>  value.id !=id);
 
     return h.response(notesData);
 }
@@ -52,10 +50,9 @@ export const deleteNote = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
 export const getNoteById = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
     const id:number = request.params.id;
     console.log(id);
-    let noteF = notesData.find((value:Note)=>{
-        if(value.id===id) return value;
-    });
+    let noteF = notesData.find((value:Note)=>  value.id==id);
    
+    console.log(noteF);
     if(noteF){
         return h.response(noteF);
     }else{
