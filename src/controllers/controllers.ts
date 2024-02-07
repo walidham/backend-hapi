@@ -9,7 +9,6 @@ export const home = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
 
 
 export const notesList = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
-    console.log("11111111111");
     return h.response(notesData);
 }
 
@@ -26,14 +25,19 @@ export const updateNote = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
     const id:number = request.params.id;
 
     const note = <Note>request.payload;
+    
     let noteF = notesData.find((value:Note)=>{
-        value.id===id;
+        if(value.id===id) return value;
     });
+
     if(noteF){
-        noteF=note
+        noteF=note;
+        return h.response(notesData);
+    }else{
+        return h.response("note not found, please try another id");
     }
 
-    return h.response(notesData);
+    
 }
 
 export const deleteNote = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
@@ -52,6 +56,11 @@ export const getNoteById = (request:Hapi.Request,h:Hapi.ResponseToolkit) =>{
         if(value.id===id) return value;
     });
    
+    if(noteF){
+        return h.response(noteF);
+    }else{
+        return h.response("note not found, please try another id");
+    }
 
-    return h.response(noteF);
+    
 }
